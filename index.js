@@ -110,7 +110,7 @@ async function run() {
               res.json(result);
           });
         //get profile data
-        app.get('/profile', async(req,res)=>{
+        app.get('/profile/:email', async(req,res)=>{
             const email = req.query.email;
             const query = {email:email};
             const cursor = usersProfileCollections.find(query);
