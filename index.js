@@ -110,10 +110,8 @@ async function run() {
               res.json(result);
           });
         //get profile data
-        app.get('/profile/:email', async(req,res)=>{
-            const email = req.query.email;
-            const query = {email:email};
-            const cursor = usersProfileCollections.find(query);
+        app.get('/profile', async(req,res)=>{
+            const cursor = usersProfileCollections.find({});
             const profile = await cursor.toArray();
             //console.log(profile);
             res.json(profile);
