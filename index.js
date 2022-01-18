@@ -130,6 +130,13 @@ async function run() {
             //console.log(result);
             res.json(result);
         });
+        //get all user data for table
+        app.get('/users', async(req,res)=>{
+            const cursor = customerCartCollection.find({});
+            const result = await cursor.toArray();
+            //console.log(result);
+            res.json(result);
+        });
         //delete api
         app.delete('/cart/:id', async(req,res)=>{
         const id = req.params.id;
@@ -137,7 +144,16 @@ async function run() {
         const result = await customerCartCollection.deleteOne(query);
         //console.log('deleting id', result);
         res.json(result);
-      })
+      });
+      //make teacher
+      app.put('/users/teacher',async(req,res)=>{
+        const user = req.body;
+        const filter = {email: user.email};
+        const updateDoc = {$set:{role:'teacher'}};
+        const result = await usersCollections.updateOne(filter,updateDoc);
+        //console.log(result);
+        res.send(result);
+    })
     }
     finally {
         // await client.close();
