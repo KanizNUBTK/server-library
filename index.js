@@ -153,15 +153,6 @@ async function run() {
         console.log('deleting id', result);
         res.json(result);
       });
-      //make teacher
-    //   app.put('/users/teacher',async(req,res)=>{
-    //     const user = req.body;
-    //     const filter = {email: user.email};
-    //     const updateDoc = {$set:{role:'teacher'}};
-    //     const result = await usersCollections.updateOne(filter,updateDoc);
-    //     //console.log(result);
-    //     res.send(result);
-    //})
     }
     finally {
         // await client.close();
