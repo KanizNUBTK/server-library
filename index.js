@@ -137,7 +137,7 @@ async function run() {
             //console.log(result);
             res.json(result);
         });
-        //delete api
+        //delete booking book
         app.delete('/cart/:id', async(req,res)=>{
         const id = req.params.id;
         const query = { _id : ObjectId(id) };
@@ -145,15 +145,23 @@ async function run() {
         //console.log('deleting id', result);
         res.json(result);
       });
+        //remove admin from users collection
+        app.delete('/users/:id', async(req,res)=>{
+        const id = req.params.id;
+        const query = { _id : ObjectId(id) };
+        const result = await usersCollections.deleteOne(query);
+        console.log('deleting id', result);
+        res.json(result);
+      });
       //make teacher
-      app.put('/users/teacher',async(req,res)=>{
-        const user = req.body;
-        const filter = {email: user.email};
-        const updateDoc = {$set:{role:'teacher'}};
-        const result = await usersCollections.updateOne(filter,updateDoc);
-        //console.log(result);
-        res.send(result);
-    })
+    //   app.put('/users/teacher',async(req,res)=>{
+    //     const user = req.body;
+    //     const filter = {email: user.email};
+    //     const updateDoc = {$set:{role:'teacher'}};
+    //     const result = await usersCollections.updateOne(filter,updateDoc);
+    //     //console.log(result);
+    //     res.send(result);
+    //})
     }
     finally {
         // await client.close();
