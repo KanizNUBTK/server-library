@@ -90,8 +90,8 @@ async function run() {
               const userEmail = req.body.email;
               const userPhoneNumber = req.body.phoneNumber;
               const userAddress = req.body.address;
-              const memberOne = req.body.personOne;
-              const memberTow = req.body.personTow;
+              const teacherEmail = req.body.teacherEmail;
+              const friendEmail = req.body.friendEmail;
               const userProfliePic = req.files.profilePictute;
               const profilePicData = userProfliePic.data;
               const encodedProfilePic = profilePicData.toString('base64');
@@ -101,8 +101,8 @@ async function run() {
                 userEmail,
                 userPhoneNumber,
                 userAddress,
-                memberOne,
-                memberTow,
+                teacherEmail,
+                friendEmail,
                 profilePictute: profilePicBuffer
               }
               const result = await usersProfileCollections.insertOne(photo);
