@@ -132,7 +132,7 @@ async function run() {
         });
         //get all user data for table
         app.get('/users', async(req,res)=>{
-            const cursor = customerCartCollection.find({});
+            const cursor = usersCollections.find({});
             const result = await cursor.toArray();
             //console.log(result);
             res.json(result);
