@@ -93,7 +93,7 @@ async function run() {
               const teacherEmail = req.body.teacherEmail;
               const friendEmail = req.body.friendEmail;
               const userProfliePic = req.files.profilePictute;
-              const status = req.files.status;
+              const status = "incomplete";
               const profilePicData = userProfliePic.data;
               const encodedProfilePic = profilePicData.toString('base64');
               const profilePicBuffer = Buffer.from(encodedProfilePic, 'base64');
