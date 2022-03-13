@@ -84,8 +84,8 @@ async function run() {
         });
         //add profile
         app.post('/profile', async(req,res)=>{
-            //   console.log('body', req.body);
-            //   console.log('files', req.files);
+            //    console.log('body', req.body);
+            //    console.log('files', req.files);
               const userName = req.body.name;
               const userEmail = req.body.email;
               const userPhoneNumber = req.body.phoneNumber;
@@ -93,6 +93,7 @@ async function run() {
               const teacherEmail = req.body.teacherEmail;
               const friendEmail = req.body.friendEmail;
               const userProfliePic = req.files.profilePictute;
+              const status = req.files.status;
               const profilePicData = userProfliePic.data;
               const encodedProfilePic = profilePicData.toString('base64');
               const profilePicBuffer = Buffer.from(encodedProfilePic, 'base64');
@@ -103,10 +104,11 @@ async function run() {
                 userAddress,
                 teacherEmail,
                 friendEmail,
+                status,
                 profilePictute: profilePicBuffer
               }
               const result = await usersProfileCollections.insertOne(photo);
-              //console.log(result);
+              console.log(result);
               res.json(result);
           });
         //get profile data
@@ -150,7 +152,7 @@ async function run() {
         const id = req.params.id;
         const query = { _id : ObjectId(id) };
         const result = await usersCollections.deleteOne(query);
-        console.log('deleting id', result);
+        //console.log('deleting id', result);
         res.json(result);
       });
     }
