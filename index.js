@@ -83,23 +83,24 @@ async function run() {
             res.json(result);
         });
         //add profile
-        app.post('/profile', async(req,res)=>{
-            //    console.log('body', req.body);
-            //    console.log('files', req.files);
-              const userName = req.body.name;
-              const userEmail = req.body.email;
+        app.put('/users', async(req,res)=>{
+                console.log('body', req.body);
+                console.log('files', req.files);
+              const displayName = req.body.name;
+              const email = req.body.email;
+              const filter = {email: email};
               const userPhoneNumber = req.body.phoneNumber;
               const userAddress = req.body.address;
               const teacherEmail = req.body.teacherEmail;
               const friendEmail = req.body.friendEmail;
               const userProfliePic = req.files.profilePictute;
-              const status = "incomplete";
+              const status = req.body.status;
+              console.log(status);
               const profilePicData = userProfliePic.data;
               const encodedProfilePic = profilePicData.toString('base64');
               const profilePicBuffer = Buffer.from(encodedProfilePic, 'base64');
               const photo={
-                userName,
-                userEmail,
+                displayName,
                 userPhoneNumber,
                 userAddress,
                 teacherEmail,
@@ -107,7 +108,9 @@ async function run() {
                 status,
                 profilePictute: profilePicBuffer
               }
-              const result = await usersProfileCollections.insertOne(photo);
+              console.log(photo);
+              const updateDoc = {$set:photo};
+              const result = await usersCollections.updateOne(filter,updateDoc);
               console.log(result);
               res.json(result);
           });
@@ -134,9 +137,9 @@ async function run() {
         });
         //get all user data for table
         app.get('/users', async(req,res)=>{
-            const cursor = usersCollections.find({});
+            const cursor = await usersCollections.find();
             const result = await cursor.toArray();
-            //console.log(result);
+            console.log('get user',result);
             res.json(result);
         });
         //delete booking book
